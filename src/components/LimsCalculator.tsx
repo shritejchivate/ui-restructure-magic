@@ -687,6 +687,24 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
           <div className="lims-card mb-4">
             <h3 className="lims-label mb-4">📊 Your ROI Results</h3>
             <ResultsPanel roi={roi} planObj={planObj} accentColor={accentColor} />
+            <button
+              onClick={() =>
+                generateRoiPdf({
+                  roi,
+                  plan: planObj,
+                  labSize,
+                  modality: mod.name,
+                  goalLabel: goal === "A" ? "Base — Efficiency & Savings" : goal === "B" ? "Growth — Revenue & Throughput" : "Enterprise — Full ROI Model",
+                  accentColor,
+                  inp,
+                })
+              }
+              className="w-full mt-4 py-2.5 rounded-xl border-none cursor-pointer text-sm font-bold text-primary-foreground flex items-center justify-center gap-2 transition-opacity hover:opacity-90"
+              style={{ background: accentColor }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export PDF Report
+            </button>
           </div>
           <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl">
             <p className="m-0 text-[11px] text-amber-800 leading-relaxed">
