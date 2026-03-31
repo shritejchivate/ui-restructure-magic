@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { generateRoiPdf } from "@/lib/generateRoiPdf";
 
 // ─── MODALITY DATA ────────────────────────────────────────────────────────────
 const MODALITIES = {
