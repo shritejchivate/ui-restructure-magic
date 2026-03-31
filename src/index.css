@@ -1,96 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 214 32% 96%;
+    --foreground: 222 84% 5%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222 84% 5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 222 84% 5%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 245 58% 51%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 245 58% 51%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* LIMS-specific tokens */
+    --lims-indigo: 239 84% 67%;
+    --lims-emerald: 160 84% 39%;
+    --lims-violet: 263 70% 50%;
+    --lims-sky: 199 89% 48%;
+    --lims-amber: 38 92% 50%;
+    --lims-rose: 0 84% 60%;
+
+    --lims-surface: 0 0% 100%;
+    --lims-surface-alt: 220 14% 96%;
+    --lims-label: 215 19% 35%;
+    --lims-sublabel: 215 16% 57%;
+    --lims-muted-text: 213 12% 72%;
 
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
+    --sidebar-foreground: 240 5% 26%;
+    --sidebar-primary: 240 6% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 217 91% 60%;
   }
 }
 
@@ -101,5 +68,111 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .lims-card {
+    @apply bg-card rounded-2xl border border-border p-6 shadow-sm;
+  }
+
+  .lims-step-badge {
+    @apply w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold text-primary-foreground;
+  }
+
+  .lims-section-title {
+    @apply text-sm font-extrabold text-foreground;
+  }
+
+  .lims-section-subtitle {
+    @apply text-[11px] text-muted-foreground;
+  }
+
+  .lims-label {
+    @apply text-[11px] font-bold uppercase tracking-wider;
+    color: hsl(var(--lims-label));
+  }
+
+  .lims-selector-card {
+    @apply p-5 rounded-xl border-2 cursor-pointer text-left transition-all duration-200 relative overflow-hidden;
+  }
+
+  .lims-selector-card:hover {
+    @apply shadow-md -translate-y-0.5;
+  }
+
+  .lims-selector-card[data-active="true"] {
+    @apply shadow-lg;
+  }
+
+  .lims-stat-grid {
+    @apply grid grid-cols-4 gap-3 mt-5 p-4 rounded-xl;
+    background: hsl(var(--lims-surface-alt));
+  }
+
+  .lims-input-wrapper {
+    @apply flex items-center border-[1.5px] rounded-lg overflow-hidden transition-colors;
+    border-color: hsl(var(--border));
+    background: hsl(var(--lims-surface));
+  }
+
+  .lims-input-wrapper:focus-within {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+  }
+
+  .lims-input-prefix {
+    @apply px-2.5 text-xs font-bold self-stretch flex items-center;
+    color: hsl(var(--lims-muted-text));
+    background: hsl(var(--lims-surface-alt));
+    border-right: 1px solid hsl(var(--border));
+  }
+
+  .lims-metric-card {
+    @apply rounded-xl p-3.5 border-[1.5px];
+  }
+
+  .lims-goal-tab {
+    @apply px-5 py-5 rounded-t-2xl border-none cursor-pointer text-left transition-all duration-200;
+  }
+
+  .lims-goal-tab[data-active="true"] {
+    @apply bg-card shadow-lg;
+  }
+
+  .lims-goal-tab[data-active="false"] {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+  }
+
+  .lims-goal-tab[data-active="false"]:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .lims-tag {
+    @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[9px] font-extrabold uppercase;
+  }
+
+  .lims-breakdown-bar {
+    @apply h-2 rounded-full overflow-hidden flex;
+  }
+
+  .lims-cashflow-table {
+    @apply w-full text-xs;
+    border-collapse: collapse;
+  }
+
+  .lims-cashflow-table th,
+  .lims-cashflow-table td {
+    @apply py-2 px-2.5;
+  }
+
+  .lims-footer {
+    @apply p-4 bg-card rounded-xl border text-center;
+  }
+
+  .lims-footer p {
+    @apply text-[11px] text-muted-foreground leading-relaxed m-0;
   }
 }
