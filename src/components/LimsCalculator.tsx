@@ -187,7 +187,7 @@ function SliderInput({ label, value, onChange, min, max, step = 0.01, format = f
 // ─── MODALITY SELECTOR ────────────────────────────────────────────────────────
 function ModalitySelector({ modality, setModality }: { modality: ModalityKey; setModality: (m: ModalityKey) => void }) {
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
       {(Object.entries(MODALITIES) as [ModalityKey, typeof MODALITIES[ModalityKey]][]).map(([key, m]) => {
         const active = modality === key;
         return (
@@ -221,7 +221,7 @@ function LabSizeSelector({ labSize, setLabSize, accentColor }: { labSize: LabSiz
     { key: "large", label: "Large Lab", sub: "7–15 FTE", icon: "🏭", detail: "50k+ tests/yr" },
   ];
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
       {sizes.map(s => {
         const active = labSize === s.key;
         return (
@@ -255,7 +255,7 @@ function PlanSelector({ labSize, planKey, setPlanKey, accentColor, goal }: {
   const recommended = getRecommendedPlan(labSize, goal);
 
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
       {tiers.map((p) => {
         const active = planKey === p.key;
         const isRec = p.key === recommended;
@@ -498,7 +498,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
       </div>
 
       {/* STEP 3: Inputs + Results side by side */}
-      <div className="grid grid-cols-[1fr_360px] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
         <div>
           {/* Core inputs */}
           <div className="lims-card mb-4">
@@ -570,7 +570,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
                   {activeTab === "errors" && (
                     <div>
                       <p className="mb-4 text-[11px] text-muted-foreground italic">Verify with your LIS/QC system data</p>
-                      <div className="grid grid-cols-3 gap-3 mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                         <InputField label="Rejection Rate" value={Math.round(inp.rejectionRate * 1000) / 10} onChange={v => set("rejectionRate")(v / 100)} suffix="%" min={0.5} max={15} step={0.1} note="CAP avg 2–6%" />
                         <InputField label="Cost per Repeat" value={inp.costPerRepeat} onChange={set("costPerRepeat")} prefix="$" min={10} note="Reagent + FTE" />
                         <InputField label="Error Reduction %" value={Math.round(inp.errorReductionPct * 100)} onChange={v => set("errorReductionPct")(v / 100)} suffix="%" min={30} max={90} note="Avg 45–65%" />
@@ -599,7 +599,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
                       <p className="mb-4 text-[11px] text-muted-foreground italic">CLMA LIMS Impact Study benchmarks</p>
                       <SliderInput label="TAT Improvement %" value={inp.tatImprovement} onChange={set("tatImprovement")} min={0.05} max={0.50} note="CLMA avg 15–35%. 50% capture rate applied." accentColor={accentColor} />
                       <SliderInput label="Reagent Waste Reduction %" value={inp.reagentWastePct} onChange={set("reagentWastePct")} min={0.05} max={0.25} note="Avg 8–20% via lot tracking & expiry alerts." accentColor={accentColor} />
-                      <div className="grid grid-cols-2 gap-3 mt-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
                         <div className="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200">
                           <div className="text-[10px] font-bold text-emerald-600 uppercase">Throughput Revenue</div>
                           <div className="text-xl font-extrabold text-emerald-900 mt-1">{fmtK(roi.throughputGain)}<span className="text-[11px]">/yr</span></div>
@@ -758,16 +758,16 @@ export default function LimsCalculator() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero header */}
-      <div className="pt-9 px-7 text-primary-foreground" style={{ background: active.bg }}>
+      <div className="pt-6 sm:pt-9 px-4 sm:px-7 text-primary-foreground" style={{ background: active.bg }}>
         <div className="max-w-[1060px] mx-auto">
           <div className="text-center mb-8">
             <div className="text-[11px] font-bold tracking-[0.14em] uppercase text-primary-foreground/50 mb-2">LIMS Platform</div>
-            <h1 className="m-0 mb-2.5 text-4xl font-black tracking-tight text-primary-foreground">ROI Calculator</h1>
+            <h1 className="m-0 mb-2.5 text-2xl sm:text-4xl font-black tracking-tight text-primary-foreground">ROI Calculator</h1>
             <p className="m-0 text-primary-foreground/70 text-[15px]">Choose your goal — we'll auto-match the right plan and inputs</p>
           </div>
 
           {/* Goal selector */}
-          <div className="grid grid-cols-3 gap-3 pb-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pb-0">
             {goals.map(g => {
               const isActive = goal === g.id;
               return (
@@ -814,14 +814,14 @@ export default function LimsCalculator() {
       </div>
 
       {/* Main content */}
-      <div className="max-w-[1060px] mx-auto py-6 px-7 pb-10">
+      <div className="max-w-[1060px] mx-auto py-6 px-4 sm:px-7 pb-10">
         {goal === "A" && <CalculatorLayout goal="A" accentColor="#4338ca" showThroughput={false} showCompliance={true} showAllTabs={false} />}
         {goal === "B" && <CalculatorLayout goal="B" accentColor="#059669" showThroughput={true} showCompliance={false} showAllTabs={false} />}
         {goal === "C" && <CalculatorLayout goal="C" accentColor="#7c3aed" showThroughput={true} showCompliance={true} showAllTabs={true} />}
       </div>
 
       {/* Footer */}
-      <div className="max-w-[1060px] mx-auto mb-8 px-7">
+      <div className="max-w-[1060px] mx-auto mb-8 px-4 sm:px-7">
         <div className="lims-footer">
           <p>
             Benchmarks from CAP Q-Probes, CLMA, CLSI EP23, BLS, and CMS. Results are estimates for planning purposes only.
