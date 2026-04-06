@@ -107,7 +107,7 @@
   }
 
   .lims-stat-grid {
-    @apply grid grid-cols-4 gap-3 mt-5 p-4 rounded-xl;
+    @apply grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 p-4 rounded-xl;
     background: hsl(var(--lims-surface-alt));
   }
 
