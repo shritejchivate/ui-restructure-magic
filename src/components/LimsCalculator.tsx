@@ -481,7 +481,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
 
       {/* STEP 2: Plan Selection */}
       <div className="lims-card mb-4">
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           <div className="flex items-center gap-2.5">
             <div className="lims-step-badge" style={{ background: accentColor }}>2</div>
             <div>
@@ -489,7 +489,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
               <div className="lims-section-subtitle">Pricing auto-matched to your lab size · change anytime</div>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">
+          <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 self-start sm:self-auto">
             <span className="text-[11px] text-amber-800">✨</span>
             <span className="text-[11px] font-bold text-amber-800">Auto-recommended for {labSize} lab</span>
           </div>
@@ -510,7 +510,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mb-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
               <InputField label="Annual Test Volume" value={inp.volume} onChange={set("volume")} suffix="tests/yr" min={1000} step={500} />
               <InputField label="Avg Revenue / Test" value={inp.revPerTest} onChange={set("revPerTest")} prefix="$" min={10} step={5} note={`${mod.name} default`} />
               <InputField label="Number of FTEs" value={inp.ftes} onChange={set("ftes")} suffix="staff" min={0.5} step={0.5} />
@@ -520,7 +520,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
             </div>
 
             <SliderInput label="Base Labor Time Reduction" value={inp.laborPct} onChange={set("laborPct")} min={0.3} max={0.8} note="CAP/CLMA: 50–65% post-LIMS. Applied to base salary only." accentColor={accentColor} />
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <InputField label="Monthly OT Hours" value={inp.otHrs} onChange={set("otHrs")} suffix="hrs/mo" min={0} />
               <InputField label="OT Reduction %" value={Math.round(inp.otPct * 100)} onChange={v => set("otPct")(v / 100)} suffix="%" min={10} max={70} note="Avg 35–55%" />
             </div>
@@ -585,7 +585,7 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
                   {activeTab === "compliance" && (
                     <div>
                       <p className="mb-4 text-[11px] text-muted-foreground italic">CLIA/CAP inspection defaults pre-filled</p>
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <InputField label="Audits per Year" value={inp.audits} onChange={set("audits")} suffix="audits" min={1} max={10} note="CLIA, CAP, DOH" />
                         <InputField label="Hours per Audit" value={inp.auditHrs} onChange={set("auditHrs")} suffix="hrs" min={5} max={200} note="Avg 20–160 hrs" />
                         <InputField label="Audit Time Saved %" value={Math.round(inp.auditSavePct * 100)} onChange={v => set("auditSavePct")(v / 100)} suffix="%" min={20} max={75} note="LIMS avg 40–65%" />
@@ -615,14 +615,14 @@ function CalculatorLayout({ goal, accentColor, showThroughput, showCompliance, s
                     <div>
                       <p className="mb-3 text-[11px] text-muted-foreground italic">Pre-filled from plan · adjust to match your quote</p>
                       <h4 className="lims-label mb-2.5">Annual Recurring</h4>
-                      <div className="grid grid-cols-2 gap-2.5 mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
                         <InputField label="Annual License Fee" value={inp.licenseYr1} onChange={set("licenseYr1")} prefix="$" step={1000} note="Every year" />
                         <InputField label="Maintenance" value={inp.maintenance} onChange={set("maintenance")} prefix="$" step={500} />
                         <InputField label="IT Overhead" value={inp.itOverhead} onChange={set("itOverhead")} prefix="$" step={500} />
                         <InputField label="Retraining" value={inp.retraining} onChange={set("retraining")} prefix="$" step={250} />
                       </div>
                       <h4 className="lims-label mb-2.5">One-Time Implementation</h4>
-                      <div className="grid grid-cols-2 gap-2.5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         <InputField label="Onboarding" value={inp.onboarding} onChange={set("onboarding")} prefix="$" step={500} />
                         <InputField label="Implementation" value={inp.impl} onChange={set("impl")} prefix="$" step={1000} />
                         <InputField label="Data Migration" value={inp.migration} onChange={set("migration")} prefix="$" step={1000} />
