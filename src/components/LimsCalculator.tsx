@@ -106,7 +106,19 @@ function calcROI(inp: Record<string, number>) {
   const oneTimeCost = inp.onboarding + inp.impl + inp.migration + inp.hardware + inp.training;
   const annualOngoing = inp.licenseYr1 + inp.maintenance + inp.itOverhead + inp.retraining;
   const netAnnual = totalBenefits - annualOngoing;
-  const payback = netAnnual > 0 ? (oneTimeCost / netAnnual) * 12 : Infinity;
+  // Payback: accumulate net cash flow month-by-month with adoption ramp (60%/80%/100%)
+  const payback = (() => {
+    const ramps = [0.60, 0.80, 1.0, 1.0, 1.0];
+    let cumulative = -oneTimeCost;
+    for (let yr = 0; yr < 5; yr++) {
+      const monthlyNet = (totalBenefits * ramps[yr] - annualOngoing) / 12;
+      for (let m = 0; m < 12; m++) {
+        cumulative += monthlyNet;
+        if (cumulative >= 0) return yr * 12 + m + 1;
+      }
+    }
+    return Infinity;
+  })();
   const totalCost3 = oneTimeCost + annualOngoing * 3;
   const totalBenefit3 = totalBenefits * 0.60 + totalBenefits * 0.80 + totalBenefits;
   const totalCost5 = oneTimeCost + annualOngoing * 5;
