@@ -106,19 +106,7 @@ function calcROI(inp: Record<string, number>) {
   const oneTimeCost = inp.onboarding + inp.impl + inp.migration + inp.hardware + inp.training;
   const annualOngoing = inp.licenseYr1 + inp.maintenance + inp.itOverhead + inp.retraining;
   const netAnnual = totalBenefits - annualOngoing;
-  // Payback: accumulate net cash flow month-by-month with adoption ramp (60%/80%/100%)
-  const payback = (() => {
-    const ramps = [0.60, 0.80, 1.0, 1.0, 1.0];
-    let cumulative = -oneTimeCost;
-    for (let yr = 0; yr < 5; yr++) {
-      const monthlyNet = (totalBenefits * ramps[yr] - annualOngoing) / 12;
-      for (let m = 0; m < 12; m++) {
-        cumulative += monthlyNet;
-        if (cumulative >= 0) return yr * 12 + m + 1;
-      }
-    }
-    return Infinity;
-  })();
+  const payback = netAnnual > 0 ? (oneTimeCost / netAnnual) * 12 : Infinity;
   const totalCost3 = oneTimeCost + annualOngoing * 3;
   const totalBenefit3 = totalBenefits * 0.60 + totalBenefits * 0.80 + totalBenefits;
   const totalCost5 = oneTimeCost + annualOngoing * 5;
@@ -372,7 +360,7 @@ const LOGIC_ITEMS = [
   { title: "Throughput Revenue", formula: "Volume × TAT Improvement % × 50% Capture Rate × Rev/Test", assumption: "50% capture = conservative. CLMA avg: 15–35% TAT improvement." },
   { title: "Reagent Savings", formula: "Reagent Spend × % Waste Reduction", assumption: "Via lot tracking, expiry alerts, automated ordering. Avg: 8–20%." },
   { title: "Adoption Ramp", formula: "Yr 1 = 60%  |  Yr 2 = 80%  |  Yr 3–5 = 100%", assumption: "Accounts for training curve, workflow re-engineering, and stabilization." },
-  { title: "Payback Period", formula: "Cumulative monthly cash flow with adoption ramp", assumption: "Month-by-month accumulation using 60%/80%/100% ramp until cumulative net ≥ 0." },
+  { title: "Payback Period", formula: "One-Time Cost ÷ Net Annual Benefit × 12", assumption: "Net annual = gross benefits − all annual recurring costs (incl. license)." },
   { title: "ROI %", formula: "(Total Benefits − Total Costs) ÷ Total Costs × 100", assumption: "Total costs = one-time + annual recurring × years." },
 ];
 
