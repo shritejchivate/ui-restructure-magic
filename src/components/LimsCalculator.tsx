@@ -372,7 +372,7 @@ const LOGIC_ITEMS = [
   { title: "Throughput Revenue", formula: "Volume × TAT Improvement % × 50% Capture Rate × Rev/Test", assumption: "50% capture = conservative. CLMA avg: 15–35% TAT improvement." },
   { title: "Reagent Savings", formula: "Reagent Spend × % Waste Reduction", assumption: "Via lot tracking, expiry alerts, automated ordering. Avg: 8–20%." },
   { title: "Adoption Ramp", formula: "Yr 1 = 60%  |  Yr 2 = 80%  |  Yr 3–5 = 100%", assumption: "Accounts for training curve, workflow re-engineering, and stabilization." },
-  { title: "Payback Period", formula: "One-Time Cost ÷ Net Annual Benefit × 12", assumption: "Net annual = gross benefits − all annual recurring costs (incl. license)." },
+  { title: "Payback Period", formula: "Cumulative monthly cash flow with adoption ramp", assumption: "Month-by-month accumulation using 60%/80%/100% ramp until cumulative net ≥ 0." },
   { title: "ROI %", formula: "(Total Benefits − Total Costs) ÷ Total Costs × 100", assumption: "Total costs = one-time + annual recurring × years." },
 ];
 
